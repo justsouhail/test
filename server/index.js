@@ -28,6 +28,19 @@ app.post("/adduser", async (req, res) => {
   res.send('data insert')
 });
 
+app.post("/loguser" ,async (req, res) => {
+  const { email, password } = req.body;
+  console.log( password);
+  const user = await Usermodel.findOne({ email, password });
+  if (user) {
+    res.send({ message: 'Login successful', user });
+    console.log('succes')
+  } else {
+    res.status(401).send({ message: 'Invalid email or password' });
+  }
+});
+
+
 // app.get("/read", async (req, res) => {
 //   try {
 //     const result = await Friendmodel.find({});
